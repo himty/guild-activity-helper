@@ -95,7 +95,7 @@ def load_guild_list(filename="data/guild_list.txt"):
     Returns a flattened list of all IGNs across all ranks.
     """
     guild_list = {}
-    with open(filename, "r") as f:
+    with open(filename, "r", encoding='utf-8') as f:
         # Skip the header
         line = next(f)
         while not line.startswith("--"):
@@ -123,7 +123,7 @@ def load_active_list(filename="output/active_igns.txt"):
     Returns a list of member names.
     """
     try:
-        with open(filename, "r") as f:
+        with open(filename, "r", encoding='utf-8') as f:
             active_list = [line.strip() for line in f if line.strip()]
         return active_list
     except FileNotFoundError:
@@ -132,7 +132,7 @@ def load_active_list(filename="output/active_igns.txt"):
 
 async def main(args):
     # Load config
-    with open("data/config.json", "r") as f:
+    with open("data/config.json", "r", encoding='utf-8') as f:
         config = json.load(f)
         BOT_TOKEN = config["BOT_TOKEN"]
         GUILD_ID = config["GUILD_ID"]

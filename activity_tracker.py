@@ -75,7 +75,7 @@ class DiscordLogClient(discord.Client):
         self.last_log_filename = filename
         # save messages as a json file
         print(f"Saving logs to {filename}")
-        with open(filename, "w") as f:
+        with open(filename, "w", encoding='utf-8') as f:
             json.dump(logs, f)
 
     async def save_messages(self):
@@ -266,7 +266,7 @@ class ActivityTracker:
         # TODO make this load automagically from the discord bot, not from a text file
         # ^ actually, that's hard because that requires calling another bot
         guild_list = {}
-        with open(self.GUILD_LIST_FILENAME, "r") as f:
+        with open(self.GUILD_LIST_FILENAME, "r", encoding='utf-8') as f:
             # Skip the header
             line = next(f)
             while not line.startswith("--"):
@@ -309,7 +309,7 @@ class ActivityTracker:
         Load sb levels from the list in SB_LEVEL_LIST_FILENAME
         """
         sb_levels = {}
-        with open(self.SB_LEVEL_LIST_FILENAME, "r") as f:
+        with open(self.SB_LEVEL_LIST_FILENAME, "r", encoding='utf-8') as f:
             for line in f:
                 if ":" in line:
                     ign, sb_level = line.split(":")[:2]
@@ -396,7 +396,7 @@ class ActivityTracker:
         """
         Calculate whether a person is currently active using the defined constants
         """
-        with open(log_file, "r") as f:
+        with open(log_file, "r", encoding='utf-8') as f:
             logs = json.load(f)
 
         self.guild_list_dict = self.load_guild_list()
@@ -581,7 +581,7 @@ class ActivityTracker:
             print(ign)
 
         # Save active players to a txt file
-        with open("output/active_igns.txt", "w") as f:
+        with open("output/active_igns.txt", "w", encoding='utf-8') as f:
             for ign in active_activity.keys():
                 f.write(f"{ign}\n")
 
@@ -728,7 +728,7 @@ class ActivityTracker:
 
 async def main(args):
     # Load sensitive configs like guild ID, channel ID, and bot token
-    with open("data/config.json", "r") as f:
+    with open("data/config.json", "r", encoding='utf-8') as f:
         config = json.load(f)
         # From https://discord.com/developers/applications . Click on bot name, then go to Bot tab, then get token
         BOT_TOKEN = config["BOT_TOKEN"]
